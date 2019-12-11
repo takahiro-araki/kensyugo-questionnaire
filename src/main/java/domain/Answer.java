@@ -1,6 +1,6 @@
 package domain;
 
-/**answersテーブルのドメイン.
+/**回答テーブルのドメイン.
  * @author takahiro.araki
  *
  */

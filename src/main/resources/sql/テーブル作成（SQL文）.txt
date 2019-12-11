@@ -1,0 +1,36 @@
+
+CREATE TABLE JOB_CATEGORIES(
+id serial primary key,
+name varchar(20) not null
+);
+
+CREATE TABLE QUESTION_CATEGORIES
+( id serial primary key,
+name varchar(100) not null,
+parent_id integer not null
+
+);
+
+CREATE TABLE employees(
+id serial primary key,
+name varchar(20) not null,
+join_date date ,
+job_category_id integer references job_categories(id) 
+
+);
+
+
+CREATE TABLE QUESTIONS(
+id serial primary key,
+category_id integer references question_categories(id) 
+);
+
+
+CREATE TABLE ANSWERS (
+id serial primary key,
+employee_id integer references employees(id) not null,
+question_id integer references questions(id) not null,
+point integer not null
+);
+
+INSERT INTO job_categories (id,name) VALUES (1,'Webエンジニア'), (2,'クラウドエンジニア'),(3,'機械学習エンジニア');
