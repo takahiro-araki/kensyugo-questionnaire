@@ -1,4 +1,4 @@
-package domain;
+package com.example.Domain;
 
 /**回答テーブルのドメイン.
  * @author takahiro.araki
@@ -11,6 +11,9 @@ public class Answer {
 	private Integer employeeId;
 	/**点数 */
 	private Integer point;
+	
+	/**質問ID */
+	private Integer questionId;
 	public Integer getId() {
 		return id;
 	}
@@ -29,11 +32,17 @@ public class Answer {
 	public void setPoint(Integer point) {
 		this.point = point;
 	}
+	public Integer getQuestionId() {
+		return questionId;
+	}
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
+	}
 	@Override
 	public String toString() {
-		return "Answer [id=" + id + ", employeeId=" + employeeId + ", point=" + point + "]";
+		return "Answer [id=" + id + ", employeeId=" + employeeId + ", point=" + point + ", questionId=" + questionId
+				+ "]";
 	}
-	
 	
 	
 	

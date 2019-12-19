@@ -1,0 +1,11 @@
+﻿INSERT INTO job_categories (id,name) VALUES (1,'Webエンジニア'), (2,'クラウドエンジニア'),(3,'機械学習エンジニア');
+
+INSERT INTO categories (name) VALUES 
+('Javaプログラミング'), ('データベース'),('Java-DBプログラミング')
+,('HTML-CSS'),('Webアプリケーション概要'),('SpringBoot'),('JavaScript')
+,('セキュリティ'),('Linux概要'),('ソフトウェアテスト'),('Git');
+
+
+
+
+

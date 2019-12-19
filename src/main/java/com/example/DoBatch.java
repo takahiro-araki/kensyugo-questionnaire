@@ -22,8 +22,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.opencsv.CSVReader;
 
-import domain.Employee;
-import domain.QuestionCategory;
 
 /**
  * プロジェクト内のcsvファイルを成形してDBに詰め込む実行クラス.

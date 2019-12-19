@@ -1,6 +1,9 @@
 
 spring:
+  jpa:
+    database: POSTGRESQL
   datasource:
+      platform: postgres
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://localhost:5432/questionnaire
       username: postgres
