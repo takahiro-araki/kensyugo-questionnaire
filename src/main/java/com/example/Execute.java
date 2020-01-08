@@ -11,6 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.Domain.Question;
+import com.example.Repository.EmployeeRepository;
+import com.example.Repository.QuestionRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
@@ -18,25 +21,34 @@ import com.opencsv.CSVReaderBuilder;
 @RequestMapping("/resource")
 public class Execute {
 
+	@Autowired
+	EmployeeRepository employeeRepository;
+
+	@Autowired
+	QuestionRepository questionRepository;
+
 	public static void main(String[] args) {
 		List<String> fileList = new ArrayList<String>(Arrays.asList(args));
 		fileList.remove(0);
 		
+
 		try {
-			String sqlQue=insertQue(fileList);
-			String sqlEmp=insertEmp(fileList);
-			System.out.println("-----------従業員テーブルインサート文----------------");
-			System.out.println(sqlEmp);
-			System.out.println("-----------終了----------------");
+			String sqlQue = insertQue(fileList);
+			/*
+			 * String sqlEmp = insertEmp(fileList);
+			 * System.out.println("-----------従業員テーブルインサート文----------------");
+			 * System.out.println(sqlEmp);
+			 * System.out.println("-----------終了----------------");
+			 */
 			System.out.println("-----------質問テーブルインサート文----------------");
 			System.out.println(sqlQue);
 			System.out.println("-----------終了----------------");
-			System.out.println("-----------アンサーテーブルインサート文----------------");
-			List<String> sqlAnswer = insertAnswer(fileList);
-			for (String sql : sqlAnswer) {
-				System.out.println(sql);
-			}
-			System.out.println("-----------終了----------------");
+			/*
+			 * System.out.println("-----------アンサーテーブルインサート文----------------"); List<String>
+			 * sqlAnswer = insertAnswer(fileList); for (String sql : sqlAnswer) {
+			 * System.out.println(sql); }
+			 * System.out.println("-----------終了----------------");
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,7 +71,7 @@ public class Execute {
 	 * @return SQL文
 	 * @throws Exception
 	 */
-	public static String insertQue(List<String> fileList) throws Exception {
+	public  static String insertQue(List<String> fileList) throws Exception {
 		// ファイル名からDBにインサートするカテゴリ名を抽出する
 		StringBuilder sb = new StringBuilder();
 		String file = fileList.get(0);
@@ -72,10 +84,15 @@ public class Execute {
 		String[] queLine = csvReader.readNext();
 		for (int i = 2; i < queLine.length; i++) {
 			String queName = queLine[i].replace("'", "''");
-			sb.append("('");
-			sb.append(queName + "' , ");
-			sb.append("( select id from categories where categories.id=");
-			sb.append(fileNum + ")),");
+			Execute e =new Execute();
+			if (e.confirmQue(queName)==true) {
+				sb.append("('");
+				sb.append(queName + "' , ");
+				sb.append("( select id from categories where categories.id=");
+				sb.append(fileNum + ")),");
+			} else {
+				continue;
+			}
 		}
 		sb.setLength(sb.length() - 1);
 		sb.append(";");
@@ -138,7 +155,20 @@ public class Execute {
 			sb.append(";");
 			stringList.add(sb.toString());
 		}
-
 		return stringList;
 	}
+
+	public boolean confirmQue(String name) {
+		System.out.println("検証　"+name);
+			List<Question> question = questionRepository.findAll();
+			
+			if (question.get(0)==null) {
+				return true;
+			}else {
+				return false;
+			}
+		
+		 
+	}
+
 }
